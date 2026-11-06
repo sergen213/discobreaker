@@ -106,8 +106,8 @@ var stage = {
 
 	//////////////  playback (must start from a click: fullscreen + audio need a user gesture)
 	start: function () {
-		var de = document.documentElement;
-		if (de.requestFullscreen) de.requestFullscreen().catch(function () {});
+		var de = document.documentElement; // the desktop app window is already fullscreen
+		if (!window.__DISCO_APP__ && de.requestFullscreen) de.requestFullscreen().catch(function () {});
 
 		var root = this.root = document.createElement("div");
 		root.id = "stage";

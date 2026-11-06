@@ -1,6 +1,6 @@
 [package]
 name = "disco-breaker"
-version = "1.0.1"
+version = "1.0.2"
 description = "Disco Breaker (Bedük x Internet Explorer 9, 2011) - restored HTML5 experience"
 edition = "2021"
 

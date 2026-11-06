@@ -23,7 +23,7 @@
 .btn:hover { background-position: left bottom; }
 
 html, body { height: 100%; }
-body { margin: 0; font: 11px Segoe, Arial; background: url(../img/home_bg.jpg) repeat-x center center / auto 100%; } /* stretch: the 1440px-tall gradient banded on taller windows */
+body { margin: 0; font: 11px Segoe, Arial; background: url(../img/home_bg.jpg) repeat-x center center, linear-gradient(#012373 50%, #001323 50%); } /* natural size so it lines up with the centred panel art; windows taller than 1440px get the image's edge colours above/below */
 body#popup { overflow: hidden; background: #000710; font-family: 'tesboldTRBold'; }
 
 #debug { display: none; position: absolute; right: 0; background: #ccc; margin: 10px; padding: 10px; z-index: 666; }

@@ -105,11 +105,13 @@ fn main() {
                 }
             });
             let url = format!("http://127.0.0.1:{port}/index.html").parse()?;
+            // Native fullscreen from launch. The page must not use the HTML fullscreen API here:
+            // WebKitGTK's element-fullscreen path aborts the app process on Wayland.
             tauri::WebviewWindowBuilder::new(app, "main", tauri::WebviewUrl::External(url))
                 .title("Disco Breaker")
                 .inner_size(1366.0, 768.0)
-                .min_inner_size(960.0, 600.0)
-                .maximized(true)
+                .fullscreen(true)
+                .initialization_script("window.__DISCO_APP__ = true;")
                 .build()?;
             Ok(())
         })
