@@ -1,0 +1,68 @@
+name: build
+# Portable releases only (nothing to install):
+#   macOS:   DiscoBreaker-macOS.zip -> Disco Breaker.app (universal)
+#   Windows: DiscoBreaker-windows-x64.zip -> Disco Breaker.exe + site/
+#   Linux:   DiscoBreaker-linux-x86_64.AppImage
+# Pushing a v* tag attaches all three to that tag's GitHub release.
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { lfs: true }
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.os == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+      - if: matrix.os == 'ubuntu-22.04'
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-libav
+      - run: cargo install tauri-cli --version "^2" --locked
+      - name: macOS
+        if: matrix.os == 'macos-latest'
+        working-directory: app/src-tauri
+        # Unsigned: first launch needs right-click > Open. To sign/notarize, add APPLE_SIGNING_IDENTITY,
+        # APPLE_ID, APPLE_PASSWORD, APPLE_TEAM_ID secrets as env here.
+        run: |
+          cargo tauri build --target universal-apple-darwin --bundles app
+          cd target/universal-apple-darwin/release/bundle/macos
+          ditto -c -k --keepParent "Disco Breaker.app" "$GITHUB_WORKSPACE/DiscoBreaker-macOS.zip"
+      - name: Windows
+        if: matrix.os == 'windows-latest'
+        working-directory: app/src-tauri
+        shell: bash
+        run: |
+          cargo tauri build --no-bundle
+          mkdir -p "/tmp/win/Disco Breaker"
+          cp target/release/disco-breaker.exe "/tmp/win/Disco Breaker/Disco Breaker.exe"
+          cp -r ../../site "/tmp/win/Disco Breaker/site"
+          cd /tmp/win && 7z a -mx0 "$GITHUB_WORKSPACE/DiscoBreaker-windows-x64.zip" "Disco Breaker"
+      - name: Linux
+        if: matrix.os == 'ubuntu-22.04'
+        working-directory: app/src-tauri
+        env: { NO_STRIP: "true" }
+        run: |
+          cargo tauri build --bundles appimage
+          cp target/release/bundle/appimage/*.AppImage "$GITHUB_WORKSPACE/DiscoBreaker-linux-x86_64.AppImage"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: disco-breaker-${{ matrix.os }}
+          path: |
+            DiscoBreaker-*.zip
+            *.AppImage
+      - if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            DiscoBreaker-*.zip
+            DiscoBreaker-*.AppImage

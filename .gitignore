@@ -1,0 +1,6 @@
+app/src-tauri/target/
+app/src-tauri/gen/
+dist-release/
+*.mkv
+app/src-tauri/target-docker/
+ref/

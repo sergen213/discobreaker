@@ -1,0 +1,97 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Disco Breaker</title>
+	<meta name="description" content="Bedük and Internet Explorer 9 shook hands for a unique experience, Turkey's first HTML5 music video. Come experience the cutting edge HTML5 features of Internet Explorer 9 with Disco Breaker." />
+	<meta name="keywords" content="bedük, beduk, müzik, muzik, music, teknoloji, technology, html5, internet explorer, microsoft, experience, deneyim, disco breaker, webinguzelligi, beautyoftheweb" />
+	<meta property="og:title" content="Disco Breaker" />
+	<meta property="og:type" content="song" />
+	<meta property="og:url" content="http://www.discobreaker.com/" />
+	<meta property="og:image" content="http://www.discobreaker.com/img/preview1.jpg" />
+	<meta property="og:image" content="http://www.discobreaker.com/img/preview2.jpg" />
+	<meta property="og:image" content="http://www.discobreaker.com/img/preview3.jpg" />
+	<meta property="og:site_name" content="Disco Breaker" />
+	<meta property="og:description" content="Bedük and Internet Explorer 9 shook hands for a unique experience, Turkey's first HTML5 music video. Come experience the cutting edge HTML5 features of Internet Explorer 9 with Disco Breaker." />
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<link rel="icon" type="image/ico" href="favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="css/style.css?2" />
+	<script type="text/javascript">
+		var lang_en = "en" != "tr";
+	</script>
+	<script type="text/javascript" src="js/functions.js"></script>
+	<!--[if lt IE 9]>
+	<script src="js/html5.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="js/global_js/customImage.js"></script>
+	<script type="text/javascript" src="js/index.js?2"></script>
+	<script type="text/javascript" src="js/index_cv.js"></script>
+	<script type="text/javascript" src="js/stage.js"></script>
+</head>
+<body class="en">
+
+	<div id="loader"></div>
+
+	<div id="warning">
+		<div id="no_canvas">
+			<p>Disco Breaker uses cutting edge HTML5 features (like Video and Canvas) combined with stunning graphics. This brand new web experience is brought to you by <a href='javascript:downloadIE9();'>Internet Explorer 9</a></p>
+			<a href="javascript:downloadIE9();" class="btn_dlie9"></a>
+		</div>
+		<div id="not_ie">
+			<p>Disco Breaker uses cutting edge HTML5 features (like Video and Canvas) combined with stunning graphics. This brand new web experience is brought to you by <a href='javascript:downloadIE9();'>Internet Explorer 9</a></p>
+			<a href="javascript:downloadIE9();" class="btn_dlie9"></a>
+			<a href="javascript:;" id="btn_devamet" class="btn"></a>
+		</div>
+	</div>
+
+	<div id="home">
+		<canvas id="home_canvas"></canvas>
+		<a href="javascript:;" class="login_btn" id="login_fb"></a>
+		<a href="javascript:;" class="login_btn" id="login_nofb"></a>
+	</div>
+
+	<div id="loading">
+		<div id="loading_txt"></div>
+		<canvas id="loader_canvas"></canvas>
+		<label id="media_pick">Choose the music video file (Bedük - Disco Breaker). The original clips and song were never archived.<input type="file" accept="video/*,audio/*" /></label>
+		<a href="javascript:;" id="btn_basla" class="btn"></a>
+	</div>
+
+	<div id="end">
+		<div id="end_txt"></div>
+		<a href="javascript:;" class="btn" id="btn_home"></a>
+		<div id="end_share">
+			<a href="javascript:shareFB();" class="btn" id="end_share_fb"></a>
+			<a href="javascript:shareTW();" class="btn" id="end_share_tw"></a>
+		</div>
+	</div>
+
+	<div id="debug"></div>
+
+	<div id="footer">
+		<span><a id="hlTurkish" href="index.html">Türkçe</a> / <a id="hlEnglish" class="active" href="#">English</a></span>
+		<a href="javascript:shareFB(true);" id="share_fb" class="share"></a>
+		<a href="javascript:shareTW(true);" id="share_tw" class="share"></a>
+		<span>&copy; Microsoft 2011</span>
+	</div>
+
+	<a href="javascript:downloadIE9();" id="ie9"></a>
+
+	<script type="text/javascript">
+		loadImages(function (_popupDone) {
+			if (isCanvasSupported())
+				controlPopup();
+			else
+				showWarning("no_canvas");
+			(new fadeElement()).fade(document.getElementById("loader"), 1, 0);
+		});
+	</script>
+
+	<script type="text/javascript">
+		var _gaq = []; // analytics removed; original code still pushes events
+	</script>
+
+</body>
+</html>
