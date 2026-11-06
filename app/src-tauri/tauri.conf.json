@@ -1,6 +1,6 @@
 {
   "productName": "Disco Breaker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "identifier": "com.discobreaker.player",
   "build": {
     "frontendDist": "../dist"
@@ -29,6 +29,11 @@
     ],
     "category": "Music",
     "shortDescription": "Disco Breaker, Turkey's first HTML5 music video (2011), restored",
-    "copyright": "Disco Breaker (c) Microsoft 2011, Bed\u00fck"
+    "copyright": "Disco Breaker (c) Microsoft 2011, Bedük",
+    "linux": {
+      "appimage": {
+        "bundleMediaFramework": true
+      }
+    }
   }
 }
